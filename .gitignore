@@ -1,3 +1,6 @@
 keep
 .python.env
 notebooks/.ipynb_checkpoints/
+notebooks/commondata/Census/KAGGLE.zip
+commondata/KAGGLE.zip
+notebooks/commondata/KAGGLE.zip
