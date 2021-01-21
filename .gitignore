@@ -1,6 +1,6 @@
-keep
+.DS_Store
 .python.env
-notebooks/.ipynb_checkpoints/
+.ipynb_checkpoints/
 notebooks/commondata/Census/KAGGLE.zip
 commondata/KAGGLE.zip
 notebooks/commondata/KAGGLE.zip
