@@ -15,36 +15,56 @@ import altair as alt
 # app1.py
 import streamlit as st
 def app():
-    st.title('Does school funding impact students academic performance?')
+    st.title('The impact of financial investment on student’s academic outcome for the state of California​ for diff ethnicities')
     # https://medium.com/@u.praneel.nihar/building-multi-page-web-app-using-streamlit-7a40d55fa5b4
     # http://awesome-streamlit.org/https://news.ycombinator.com/item?id=21158487https://towardsdatascience.com/coding-ml-tools-like-you-code-ml-models-ddba3357eace
     # https://docs.streamlit.io/en/stable/caching.html
     ## Initial EDA
 
-    df = pd.read_csv('~/team_84/notebooks/20210111/final_merged.csv', index_col = 0)
+
+    '''
+        The analysis was performed on Data from 2016-2017 school year.
+        Data Analysis has been performed at the District level, were Mean scale scores are the mean of all schools in the district for all the grades.
+
+        Test id 1 are the results for Literature and Arts.
+        Test id 2 are the results for Mathematics 
+
+        Data Sources:
+                - Enrollment and Revenue data gathered from the Nacional Center for Education Statistics - table generator. https://nces.ed.gov/ccd/elsi/tableGenerator.aspx
+
+               - Assessment data gathered from California assessment student performance and progress. 
+        https://caaspp-elpac.cde.ca.gov/caaspp/ResearchFileList?ps=true&lstTestYear=2019&lstTestType=B&lstCounty=00&lstDistrict=00000&lstSchool=0000000
+
+
+        Districts with higher than 20K revenue per student were outliers in our data and were filtered, a total of 9 districts.
+    '''
+
+    df = pd.read_csv('~/team_84/organized notebooks/final_economic_merged.csv', index_col = 0)
     # filtering based on total enrollment
     df = df[df['Total Enrollment'] != 0]
     df = df[df['Total Enrollment'] > 250]
 
-    # filtering office of education out of the main dataset for analysis
-    # dataset containing only districts called office of education:
-    OFFICE_OF_EDUCATION = df[df['Agency Name'].str.contains('COUNTY OFFICE OF EDUCATION')]
+    #Converting all the assessment columns back to  percentage columns for exceeded, nearly met, not met to show completion results as percentage of test taken
+    df['Percentate Std Exceed'] =(df['Total Standard Exceeded']/df['Students Tested']*100).round(decimals=0)
+    df['Percentage Std Met'] =(100*df['Total Standard Met']/df['Students Tested']).round(decimals=0)
+    df['Percentage Std Nearly Met'] =(100*df['Total Standard Nearly Met']/df['Students Tested']).round(decimals=0)
+    df['Percentage Std Not Met'] =(100*df['Total Standard Not Met']/df['Students Tested']).round(decimals=0)
+    df['Percentage Std Met and Above'] =(100*df['Total Standard Met and Above']/df['Students Tested']).round(decimals=0)
+    #Percentage was multiplied by the students tested information and not the total enrollment information.
+    #Students tested in Math and Literacy can be the same students or different students, we don't have that information.
+    #we are adding the results of both exams, this can cause a duplicate in value of students tested, I will separate both datasets
 
-    # filter office of education out of the main dataset
-    df = df[~df['Agency Name'].str.contains('COUNTY OFFICE OF EDUCATION')]
+    df['Pass'] = df['Percentate Std Exceed'] + df['Percentage Std Met']
+    df['Fail'] = df['Percentage Std Nearly Met'] + df['Percentage Std Not Met']
 
-    # filter Charters out of the main dataset
-    df = df[~df['Agency Name'].str.contains('SBE - AUDEO CHARTER')]
+    # filtering based on total enrollment
+    df = df[df['Total Enrollment'] != 0]
+    df = df[df['Total Enrollment'] > 250]
 
-    # sort by alphabetical oder on Agency Name
-    df = df.sort_values(['Agency Name'])
-
-    # dataset containing school districts with over $20,000 revenue per student
-    df_high_funding = df[(df['Revenue per student'] > 20_000)]
-
+    # need to filter out the 6 schools that have more students tested than enrolled
     # update the main dataset to not include schools with over 20k revenue per student nor zero revenue per student
-    df = df[~(df['Revenue per student'] > 20_000)]
-    df = df[~(df['Revenue per student'] == 0)]
+    df = df[(df['Revenue per student'] < 20_000)]
+    df = df[(df['Revenue per student'] != 0)]
 
     '''
     ## DATASET TEST ID 1
