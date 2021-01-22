@@ -8,8 +8,12 @@ services:
       - ./.python.env
     ports:
       - '80:8888'
+      - '8050:8050'
+      - '8501:8501'
     volumes:
       - ./notebooks:/home/jovyan/notebooks
+      - ./dashboard:/home/jovyan/dashboard
+      - ./organized\ notebooks:/home/jovyan/organized\ notebooks
 
 networks:
   default:
