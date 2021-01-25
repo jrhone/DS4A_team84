@@ -1,15 +1,14 @@
 import basic
-import eda1
-import eda2
-import eda3
+import goals
+import eda_districs
+import eda_schools
 import streamlit as st
 
 PAGES = {
-    "Goals": basic,
+    "Goals": goals,
     "Basic Analytics": basic,
-    "Exploratory Data Analysis": eda2,
-    "Data Analysis at School Distric level": eda2,
-    "Further Data Analysis at School level": eda2
+    "School Districs EDA": eda_districs,
+    "Further EDA at School level": eda_schools
 }
 
 st.sidebar.title('Navigation')
