@@ -12,7 +12,7 @@ services:
     volumes:
       - ./notebooks:/home/jovyan/notebooks
       - ./dashboard:/home/jovyan/dashboard
-      - ./organized\ notebooks:/home/jovyan/organized\ notebooks
+      - ./organized_notebooks:/home/jovyan/organized_notebooks
 
 networks:
   default:
