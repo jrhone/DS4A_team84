@@ -65,6 +65,9 @@ def app():
         st.altair_chart(chart)
 
     def revenue_per_student_score_disadvantage(df):
+        st.markdown('''
+            ### Revenue per pupil at the school level continues to show a null to negative correlation to Scores
+            ''')
         revenue = st.selectbox(
             "Revenue per pupil",
             (">= $8000 & < $12000", "> $12000")

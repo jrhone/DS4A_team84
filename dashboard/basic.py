@@ -82,16 +82,19 @@ def app():
         # https://github.com/altair-viz/altair/pull/1945
         corrMatrix = df_corr.corr().reset_index().melt('index')
         corrMatrix.columns = ['Revenue per student', 'Count Enrollment per ethnicity', 'correlation']
+        #https://github.com/streamlit/streamlit/blob/develop/lib/streamlit/elements/altair.py
+        #https://altair-viz.github.io/user_guide/customization.html#global-config-vs-local-config-vs-encoding
+        #https://altair-viz.github.io/user_guide/customization.html#adjusting-axis-labels
         chart = alt.Chart(corrMatrix).mark_rect().encode(
-            x=alt.X('Revenue per student', title=None),
-            y=alt.Y('Count Enrollment per ethnicity', title=None),
-            color=alt.Color('correlation', legend=None),
+            x=alt.X('Revenue per student', title=None,  axis=alt.Axis(labelFontSize=18)),
+            y=alt.Y('Count Enrollment per ethnicity', title=None, axis=alt.Axis(labelFontSize=18)),
+            color=alt.Color('correlation', legend=None)
         ).properties(
             width=alt.Step(80),
             height=alt.Step(80)
         )
 
-        chart += chart.mark_text(size=25).encode(
+        chart += chart.mark_text(size=10, fontSize=10).encode(
             text=alt.Text('correlation', format=".2f"),
             color=alt.condition(
                 "datum.correlation > 0.1",

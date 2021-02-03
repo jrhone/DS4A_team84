@@ -53,6 +53,13 @@ def app():
         _=plt.title('Mean Scale Score per ethnicity - Disadvantaged vs Not Disadvantged')
         st.pyplot(plt)
 
+    def scores_advantaged_vs_disadvantaged(df):
+        plt.figure(figsize=(15,6))
+        sns.catplot(x="Disadvantaged", y="Mean Scale Score", #hue="Disadvantaged", 
+            kind="box", data=df_new, palette="plasma")
+        plt.xticks(rotation=45, ha='right')
+        _=plt.title('Mean Scale Score - Disadvantaged vs Not disadvantaged')
+
     def all_district_size_by_disadvantaged(df):
         plt.figure(figsize=(15,6))
         sns.lmplot(x="Revenue per student", y="Pass", hue="Disadvantaged", palette="plasma",
@@ -75,4 +82,5 @@ def app():
     ethnicity_scores_revenue(df)
     scale_scores_per_student_by_disadvantaged(df)
     all_district_size_by_disadvantaged(df)
+    scores_advantaged_vs_disadvantaged(df)
     all_districts_by_sizes(df)
