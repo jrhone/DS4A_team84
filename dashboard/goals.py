@@ -42,14 +42,14 @@ def app():
     # df_large_districts = df_nonLosAngeles[df_nonLosAngeles['Total Enrollment']>10000]
 
     def histogram_revenue_per_student(df):
-        plt.figure(figsize=(6,4))
-        _ = sns.distplot(df['Revenue per student'])
-        _ = plt.title('Revenue per student in California School Districts')
-        # plt.show()
-        # _ = plt.hist(df['Revenue per student'], density=False, bins=30)
-        # _ = plt.ylabel('Number of ocurrences')
-        # _ = plt.xlabel('Revenue')
-        # _ = plt.title("Revenue per Student")
+        plt.figure(figsize=(8,6))
+        sns.distplot(df['Revenue per student'])
+        plt.title('Revenue per student distribution', fontsize = 16)
+
+        # Adding labels
+        _ = plt.xlabel('Revenue per student', fontsize=16)
+        _ = plt.ylabel('Density', fontsize=16)
+
         st.pyplot(plt)
 
     def enrollment_per_ethnicity(df):
