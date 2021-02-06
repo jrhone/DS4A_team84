@@ -34,3 +34,6 @@ def data_prep_final_merged():
 
 def data_prep_by_school():
     return pd.read_csv('~/organized_notebooks/dashboard_school_df.csv', index_col=0)
+
+def school_df(): 
+    return pd.read_csv(~/organized_notebooks/dashboard_school_df_w_outliers.csv', index_col=0)
