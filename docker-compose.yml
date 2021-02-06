@@ -4,8 +4,8 @@ services:
   jupyter:
     image: jupyter/tensorflow-notebook:2ce7c06a61a1
     container_name: jupyter
-    env_file:
-      - ./.python.env
+    #env_file:
+     # - ./.python.env
     ports:
       - '8888:8888'
       - '80:8501'

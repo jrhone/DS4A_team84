@@ -63,13 +63,16 @@ def app():
         y = list(pivot_df['Percent'])
         #Seaborn Horizontal barplot
         #sns.set_style("whitegrid")
-        ax = plt.subplots(figsize=(10,6))
+        sns.set_style("whitegrid")
+        bar,ax = plt.subplots(figsize=(10,6))
         ax = sns.barplot(x="Total Enrollment", y='Ethnicity', data=pivot_df, ci=None ,orient='h', palette="plasma" )
-        ax.set_title("Percent ethnicity representation of population")
-        ax.set_xlabel ("Enrollment")
-        ax.set_ylabel ("Ethnicity")
+        ax.set_title("Student enrollment per ethnicity",  fontsize = 16)
+        ax.set_xlabel ("Enrollment",  fontsize = 16)
+        ax.set_ylabel ("Ethnicity",  fontsize = 16)
+
         for i, v in enumerate(pivot_df['Percent']):
-            ax.text(v, i + .25,"%.2f%%"%(v), color='darkblue')
+            ax.text(v, i + .25,"%.2f%%"%(v), color='blue')
+        bar.savefig("Seaborn_Bar_Vertical.png");
         st.pyplot(plt)
 
     def histogram_scale_scores(df):
